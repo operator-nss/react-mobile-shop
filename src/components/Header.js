@@ -4,7 +4,7 @@ import user from '../assets/img/user.svg';
 
 
 
-function Header() {
+function Header({setCartOpened}) {
   return (
     <header className="d-flex justify-between align-center p-40">
       <div className="d-flex align-center">
@@ -14,7 +14,7 @@ function Header() {
           <p className="opacity-5">Магазин лучших кроссовок</p>
         </div>
       </div>
-      <ul className="d-flex">
+      <ul onClick={() => setCartOpened(true)} className="d-flex cu-p">
         <li className="mr-30">
           <img width={18} height={18} src={cartImage} />
           <span>1205 руб.</span>

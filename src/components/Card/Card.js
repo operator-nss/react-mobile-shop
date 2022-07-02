@@ -1,29 +1,36 @@
 import heartUnliked from '../../assets/img/heart-unliked.svg'
 import plus from '../../assets/img/plus.svg';
+import checked from '../../assets/img/btn-checked.svg';
 import './card.scss';
+import {useEffect, useState} from "react";
 
-function Card({name, price, imageUrl}) {
+function Card({title, price, imageUrl, onPlus, onClickFavorite}) {
   
-  const onClickButton = () => {
-    console.log(imageUrl)
+  const [isAdded, setIsAdded] = useState(false);
+  
+  const addToCart = () => {
+    onPlus({title, price, imageUrl})
+    setIsAdded(!isAdded)
    }
   
+  useEffect(() => {
   
+  }, [isAdded])
+ 
   return (
     <div className="card">
-      <div className="favorite">
+      <div onClick={onClickFavorite} className="favorite">
         <img src={heartUnliked} alt="Unliked" />
       </div>
       <img width={133} height={112} src={imageUrl} alt="Sneakers" />
-      <h5>{name}</h5>
+      <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
         <div className="d-flex flex-column">
           <span>Цена:</span>
           <b>{price} руб.</b>
         </div>
-        <button onClick={onClickButton}
-                className="button">
-          <img width={11} height={11} src={plus} alt="Plus" />
+        <button onClick={addToCart} className="button ">
+          <img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11}  src={!isAdded ? plus : checked} alt="Plus" />
         </button>
       </div>
     </div>

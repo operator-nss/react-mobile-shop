@@ -45,6 +45,10 @@ header {
   height: 32px;
   width: 32px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .search-block {
@@ -186,4 +190,9 @@ header {
       opacity: 1;
     }
   }
+}
+
+.sneakers {
+  flex-wrap: wrap;
+  row-gap: 30px;
 }

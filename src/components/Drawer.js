@@ -3,51 +3,38 @@ import sneakers1 from '../assets/img/sneakers/1.jpg'
 import arrow from '../assets/img/arrow.svg'
 
 
-const Drawer = () => {
+const Drawer = ({cartItems, setCartOpened={setCartOpened}}) => {
  
  return (
-    <div style={{display: 'none'}} className="overlay">
+    <div
+      // style={{display: 'none'}}
+      className="overlay">
     <div className="drawer">
       <h2 className="d-flex justify-between mb-30">
-        Корзина <img className="cu-p" src={btnRemove} alt="Remove"/>
+        Корзина <img onClick={() => setCartOpened(false)} className="cu-p" src={btnRemove} alt="Remove"/>
       </h2>
       
       <div className="items">
-        <div className="cartItem d-flex align-center mb-20">
-          <div
-            style={{backgroundImage: `url(${sneakers1})`}}
-            className="cartItemImg"></div>
-          
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
+  
+        {
+          cartItems.map((item, i) => (
+          <div key={i} className="cartItem d-flex align-center mb-20">
+            <div
+              style={{backgroundImage: `url(${item.imageUrl})`}}
+              className="cartItemImg"></div>
+    
+            <div className="mr-20 flex">
+              <p className="mb-5">{item.title}</p>
+              <b>{item.price}руб.</b>
+            </div>
+            <img className="removeBtn" src={btnRemove} alt="Remove"/>
           </div>
-          <img className="removeBtn" src={btnRemove} alt="Remove"/>
-        </div>
+        ))
         
-        <div className="cartItem d-flex align-center mb-20">
-          <div
-            style={{backgroundImage: `url(${sneakers1})`}}
-            className="cartItemImg"></div>
-          
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
-          </div>
-          <img className="removeBtn" src={btnRemove} alt="Remove"/>
-        </div>
+        }
         
-        <div className="cartItem d-flex align-center">
-          <div
-            style={{backgroundImage: `url(${sneakers1})`}}
-            className="cartItemImg"></div>
-          
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
-          </div>
-          <img className="removeBtn" src={btnRemove} alt="Remove"/>
-        </div>
+        
+
       </div>
       
       <div className="cartTotalBlock">
