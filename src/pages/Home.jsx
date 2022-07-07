@@ -1,0 +1,54 @@
+import React, {useEffect, useState} from 'react';
+import search from "../assets/img/search.svg";
+import Card from "../components/Card/Card";
+import axios from "axios";
+import Drawer from "../components/Drawer";
+import Header from "../components/Header";
+
+const Home = ({
+	              sneakers,
+	              cartItems,
+	              favoriteItems,
+	              searchValue,
+	              onAddToCart,
+	              addFavorite,
+	              onChangeSearchInput
+              }) => {
+	
+	
+	return (
+		
+		<div className="content p-40">
+			<div className="d-flex align-center justify-between mb-40">
+				<h1>{searchValue ? `Поиск: "${searchValue}"` : 'Все кроссовки'}</h1>
+				<div className="search-block d-flex">
+					<img src={search} alt="Search"/>
+					<input value={searchValue} onChange={onChangeSearchInput} placeholder="Поиск..."/>
+				</div>
+			</div>
+			
+			<div className="d-flex sneakers">
+				
+				
+				{sneakers
+					.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+					.map((item) => {
+						return <Card
+							cartItems={cartItems}
+							favoriteItems={favoriteItems}
+							onPlus={(item) => onAddToCart(item)}
+							addFavorite={(item) => addFavorite(item)}
+							key={item.id}
+							id={item.id}
+							title={item.title}
+							price={item.price}
+							imageUrl={item.imageUrl}/>
+					})}
+			
+			
+			</div>
+		</div>
+	);
+};
+
+export default Home;

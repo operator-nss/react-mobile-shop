@@ -3,7 +3,7 @@ import sneakers1 from '../assets/img/sneakers/1.jpg'
 import arrow from '../assets/img/arrow.svg'
 
 
-const Drawer = ({cartItems, setCartOpened={setCartOpened}}) => {
+const Drawer = ({cartItems, deleteItem,  setCartOpened}) => {
  
  return (
     <div
@@ -17,8 +17,8 @@ const Drawer = ({cartItems, setCartOpened={setCartOpened}}) => {
       <div className="items">
   
         {
-          cartItems.map((item, i) => (
-          <div key={i} className="cartItem d-flex align-center mb-20">
+          cartItems.map((item) => (
+          <div key={item.id} className="cartItem d-flex align-center mb-20">
             <div
               style={{backgroundImage: `url(${item.imageUrl})`}}
               className="cartItemImg"></div>
@@ -27,7 +27,7 @@ const Drawer = ({cartItems, setCartOpened={setCartOpened}}) => {
               <p className="mb-5">{item.title}</p>
               <b>{item.price}руб.</b>
             </div>
-            <img className="removeBtn" src={btnRemove} alt="Remove"/>
+            <img className="removeBtn" onClick={() => deleteItem(item)} src={btnRemove} alt="Remove"/>
           </div>
         ))
         
