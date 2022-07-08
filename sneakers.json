@@ -1,44 +1,51 @@
 [
   {
-    "id": 1,
-    "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+    "id": "1",
+    "title": "Мужские Кроссовки Nike Blazer Mid Suede Green",
     "price": 12999,
+    "realId": "1",
     "imageUrl": "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/w_593,c_limit/506a05c7-eea4-4405-af12-bba32bd0e48c/chaussure-air-jordan-1-retro-high-og.png"
   },
   {
-    "id": 2,
+    "id": "2",
     "title": "Мужские Кроссовки Nike Air Max 270",
     "price": 15600,
+    "realId": "2",
     "imageUrl": "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/w_593,c_limit/389b709e-5102-4e55-aa5d-07099b500831/chaussure-blazer-mid-77-vintage-pour-CBDjT0.png"
   },
   {
-    "id": 3,
+    "id": "3",
     "title": "Мужские Кроссовки Nike Blazer Mid Suede",
     "price": 8499,
+    "realId": "3",
     "imageUrl": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/4e0a3ff9-a45b-4273-a25a-d748e4d6d82a/chaussure-de-running-sur-route-react-infinity-run-flyknit-3-pour-Rxz40r.png"
   },
   {
-    "id": 4,
+    "id": "4",
     "title": "Кроссовки Puma X Aka Boku Future Rider",
     "price": 8999,
+    "realId": "4",
     "imageUrl": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d222e2b3-ab84-44f3-9708-6e9015e83d6f/chaussure-de-course-sur-route-zoomx-vaporfly-next-2-ekiden-X1VRQz.png"
   },
   {
     "id": "5",
     "title": "Кроссовки Future Rider",
     "price": 16999,
+    "realId": "5",
     "imageUrl": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/88ac8dff-c090-4cd0-844a-cd64d62ee44c/chaussure-air-pegasus-83-pour-qlQtLT.png"
   },
   {
     "id": "6",
     "title": "Кроссовки Black Edition",
     "price": 16999,
+    "realId": "6",
     "imageUrl": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/9bc22ee8-d7b1-4c59-acfe-675548e4e197/chaussure-de-running-sur-route-air-zoom-tempo-next-pour-zwkW5t.png"
   },
   {
     "id": "7",
     "title": "Кроссовки Orange Boomb Edition",
     "price": 7499,
+    "realId": "7",
     "imageUrl": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/9389cd5e-f6b6-4be1-986d-4beb9e3c7b67/chaussure-de-football-a-crampons-pour-terrain-sec-mercurial-superfly-8-elite-fg-jZbl4T.png"
   }
 ]

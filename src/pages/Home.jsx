@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import search from "../assets/img/search.svg";
 import Card from "../components/Card/Card";
-import axios from "axios";
-import Drawer from "../components/Drawer";
-import Header from "../components/Header";
 
 const Home = ({
 	              sneakers,
@@ -38,8 +35,9 @@ const Home = ({
 							favoriteItems={favoriteItems}
 							onPlus={(item) => onAddToCart(item)}
 							addFavorite={(item) => addFavorite(item)}
-							key={item.id}
+							key={item.realId}
 							id={item.id}
+							realId={item.realId}
 							title={item.title}
 							price={item.price}
 							imageUrl={item.imageUrl}/>

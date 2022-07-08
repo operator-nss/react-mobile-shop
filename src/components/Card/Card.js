@@ -9,8 +9,9 @@ function Card({
 	              title,
 	              price,
 	              imageUrl,
-	              onPlus,
 	              id,
+	              onPlus,
+	              realId,
 	              addFavorite,
 	              favoriteItems,
 	              cartItems,
@@ -22,24 +23,32 @@ function Card({
 	
 	
 	const addToCart = () => {
-		onPlus({title, price, imageUrl, id})
+		const id = cartItems.length + 1;
+		onPlus({id, title, price, imageUrl, realId})
 		setIsAdded(!isAdded)
 	}
 	
 	useEffect(() => {
-		if (favoriteItems.find(obj => obj.title === title)) {
+		if (favoriteItems?.some(obj => obj.realId === realId)) {
 			setIsFavorite(true)
 		}
-		if (cartItems.find(obj => obj.id === id)) {
+		if (cartItems?.some(obj => obj.realId === realId)) {
 			setIsAdded(true)
 		} else {
 			setIsAdded(false)
 		}
-	}, [cartItems, favoriteItems, id])
+	}, [cartItems, favoriteItems, realId])
 	
 	const onClickFavorite = () => {
-		addFavorite({title, price, imageUrl, id})
-		setIsFavorite(!isFavorite)
+		if (favoriteItems.find(obj => obj.realId === realId)) {
+			setIsFavorite(false);
+			const id = favoriteItems.length + 1;
+			addFavorite({title, id, price, imageUrl, realId})
+		} else {
+			addFavorite({title, price, id, imageUrl, realId})
+			setIsFavorite(true)
+		}
+		
 	}
 	
 	return (

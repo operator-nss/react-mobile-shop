@@ -34,7 +34,7 @@ const Favorites = ({
 								favoriteItems={favoriteItems}
 								onPlus={(item) => onAddToCart(item)}
 								addFavorite={(item) => addFavorite(item)}
-								key={item.id}
+								key={item.realId}
 								favorited={true}
 								{...item}
 							/>

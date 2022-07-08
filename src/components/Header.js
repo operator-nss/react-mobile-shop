@@ -5,7 +5,7 @@ import user from '../assets/img/user.svg';
 import {Link} from "react-router-dom";
 
 
-function Header({setCartOpened}) {
+function Header({setCartOpened, cartItems}) {
 	return (
 		<header className="d-flex justify-between align-center p-40">
 			<Link to='/' className="d-flex align-center">
@@ -18,16 +18,16 @@ function Header({setCartOpened}) {
 			<ul  className="d-flex cu-p">
 				<li  onClick={() => setCartOpened(true)} className="mr-30">
 					<img width={18} height={18} alt='image' src={cartImage}/>
-					<span>1205 руб.</span>
+					<span>{cartItems.reduce((num, item) =>num + item.price, 0)}руб.</span>
 				</li>
 				<li>
 					<Link to='/favorites'>
-					<img width={18} height={18} alt='favorites' src={favorites}/>
+					<img width={18} className='icon' height={18} alt='favorites' src={favorites}/>
 					</Link>
 				</li>
-				<li>
-					<img width={18} height={18} alt='image' src={user}/>
-				</li>
+				<Link to='/orders'>
+					<img width={18} className='icon' height={18} alt='orders' src={user}/>
+				</Link>
 			</ul>
 		</header>
 	);
