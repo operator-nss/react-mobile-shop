@@ -1,6 +1,7 @@
 import React from 'react';
 import search from "../assets/img/search.svg";
 import Card from "../components/Card/Card";
+import Info from "../components/Info/Info";
 
 const Favorites = ({
 	                   sneakers,
@@ -25,20 +26,24 @@ const Favorites = ({
 				
 				<div className="d-flex sneakers">
 					
+					{favoriteItems.length > 0 ? (
+						favoriteItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+								.map((item) => {
+									return <Card
+										cartItems={cartItems}
+										favoriteItems={favoriteItems}
+										onPlus={(item) => onAddToCart(item)}
+										addFavorite={(item) => addFavorite(item)}
+										key={item.realId}
+										favorited={true}
+										{...item}
+									/>
+								})
+					) : (
+					<h2 className='flex'>К сожалению Вы еще не делали заказ</h2>
+					)}
 					
-					{favoriteItems
-						.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-						.map((item) => {
-							return <Card
-								cartItems={cartItems}
-								favoriteItems={favoriteItems}
-								onPlus={(item) => onAddToCart(item)}
-								addFavorite={(item) => addFavorite(item)}
-								key={item.realId}
-								favorited={true}
-								{...item}
-							/>
-						})}
+
 				
 				
 				</div>

@@ -18,6 +18,7 @@ const App = () => {
 	const [sneakers, setSneakers] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 	const loading = useRef(false);
+	const [orderId, setOrderId] = useState(null);
 	
 	useEffect(() => {
 		if(!loading.current) {
@@ -97,7 +98,7 @@ const App = () => {
 		<div className="wrapper clear">
 		
 		<div>
-			<Drawer setCartItems={setCartItems} cartItems={cartItems} deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
+			<Drawer setCartItems={setCartItems} orderId={orderId} setOrderId={setOrderId} cartItems={cartItems} deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
 		</div>
 		
  		<Header cartItems={cartItems} setCartOpened={setCartOpened}/>
@@ -133,6 +134,8 @@ const App = () => {
 					setSearchValue={setSearchValue}
 					onAddToCart={onAddToCart}
 					addFavorite={addFavorite}
+					orderId={orderId}
+					setOrderId={setOrderId}
 					onChangeSearchInput={onChangeSearchInput}/>} />
 			</Routes>
 		

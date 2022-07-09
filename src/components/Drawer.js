@@ -3,11 +3,14 @@ import arrow from '../assets/img/arrow.svg'
 import clsx from "clsx";
 import axios from "axios";
 import {useState} from "react";
+import Info from "./Info/Info";
+import completeOrder from '../assets/img/complete-order.jpg'
+import emptyCart from '../assets/img/empty-cart.jpg';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Drawer = ({cartItems,setCartItems, deleteItem, setCartOpened, cartOpened}) => {
-	const [orderId, setOrderId] = useState(null);
+const Drawer = ({orderId, setOrderId, cartItems,setCartItems, deleteItem, setCartOpened, cartOpened}) => {
+	
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	
@@ -50,45 +53,65 @@ const Drawer = ({cartItems,setCartItems, deleteItem, setCartOpened, cartOpened})
 					Корзина <img onClick={closeCart} className="cu-p" src={btnRemove} alt="Remove"/>
 				</h2>
 				
-				<div className="items">
-					
-					{
-						cartItems.map((item) => (
-							<div key={item.realId} className="cartItem d-flex align-center mb-20">
-								<div
-									style={{backgroundImage: `url(${item.imageUrl})`}}
-									className="cartItemImg"></div>
-								
-								<div className="mr-20 flex">
-									<p className="mb-5">{item.title}</p>
-									<b>{item.price}руб.</b>
-								</div>
-								<img className="removeBtn" onClick={() => deleteItem(item)} src={btnRemove} alt="Remove"/>
-							</div>
-						))
+				{cartItems.length > 0 ? (
+					<>
+					<div className="items">
 						
-					}
+						{
+							cartItems.map((item) => (
+								<div key={item.realId} className="cartItem d-flex align-center mb-20">
+									<div
+										style={{backgroundImage: `url(${item.imageUrl})`}}
+										className="cartItemImg"></div>
+									
+									<div className="mr-20 flex">
+										<p className="mb-5">{item.title}</p>
+										<b>{item.price}руб.</b>
+									</div>
+									<img className="removeBtn" onClick={() => deleteItem(item)} src={btnRemove} alt="Remove"/>
+								</div>
+							))
+							
+						}
+					
+					
+					</div>
+					<div className="cartTotalBlock">
+						<ul>
+							<li>
+								<span>Итого:</span>
+								<div></div>
+								<b>{calcCart()} руб. </b>
+							</li>
+							<li>
+								<span>Налог 5%:</span>
+								<div></div>
+								<b>{(calcCart() * 0.05).toFixed()} руб. </b>
+							</li>
+						</ul>
+						<button onClick={onClickOrder} className="greenButton">
+							Оформить заказ <img src={arrow} alt="Arrow"/>
+						</button>
+					</div>
+					</>
+				)
+					: (
+						
+						<Info
+							title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
+							setCartOpened={setCartOpened}
+							setIsOrderComplete={setIsOrderComplete}
+							description={
+								isOrderComplete
+									? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
+									: 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+							}
+							image={isOrderComplete ? completeOrder : emptyCart}
+						/>
+					) }
+			
 				
 				
-				</div>
-				
-				<div className="cartTotalBlock">
-					<ul>
-						<li>
-							<span>Итого:</span>
-							<div></div>
-							<b>{calcCart()} руб. </b>
-						</li>
-						<li>
-							<span>Налог 5%:</span>
-							<div></div>
-							<b>{(calcCart() * 0.05).toFixed()} руб. </b>
-						</li>
-					</ul>
-					<button onClick={onClickOrder} className="greenButton">
-						Оформить заказ <img src={arrow} alt="Arrow"/>
-					</button>
-				</div>
 			</div>
 		</div>
 	)
