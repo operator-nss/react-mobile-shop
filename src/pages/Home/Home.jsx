@@ -10,7 +10,8 @@ const Home = ({
 	              searchValue,
 	              onAddToCart,
 	              addFavorite,
-	              onChangeSearchInput
+	              onChangeSearchInput,
+	              loading
               }) => {
 	
 	
@@ -18,7 +19,7 @@ const Home = ({
 		
 		<div className="main">
 			<div className="main__label">
-				<h1>{searchValue ? `Поиск: "${searchValue}"` : 'Все кроссовки'}</h1>
+				<h1>{searchValue ? `Поиск: "${searchValue}"` : 'Все телефоны'}</h1>
 				<div className="favorites__search">
 					<img src={search} alt="Search"/>
 					<input value={searchValue} onChange={onChangeSearchInput} placeholder="Поиск..."/>
@@ -32,6 +33,7 @@ const Home = ({
 					.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
 					.map((item) => {
 						return <Card
+							loading={loading}
 							cartItems={cartItems}
 							favoriteItems={favoriteItems}
 							onPlus={(item) => onAddToCart(item)}

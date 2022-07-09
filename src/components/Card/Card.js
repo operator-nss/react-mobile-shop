@@ -4,6 +4,7 @@ import plus from '../../assets/img/plus.svg';
 import checked from '../../assets/img/btn-checked.svg';
 import './card.scss';
 import {useEffect, useState} from "react";
+import ContentLoader from "react-content-loader";
 
 function Card({
 	              title,
@@ -15,7 +16,8 @@ function Card({
 	              addFavorite,
 	              favoriteItems,
 	              cartItems,
-	              favorited = false
+	              favorited = false,
+	              loading = false
               }) {
 	
 	const [isAdded, setIsAdded] = useState(false);
@@ -53,21 +55,42 @@ function Card({
 	
 	return (
 		<div className="card">
-			<div onClick={onClickFavorite} className="card__favorite">
-				<img src={!isFavorite ? heartUnliked : heartLiked} alt="Unliked"/>
-			</div>
-			<img width={133} height={112} src={imageUrl} alt="item"/>
-			<h5 className='card__title'>{title}</h5>
-			<div className="card__label">
+			
+			{!loading ? (
+				<ContentLoader
+					speed={2}
+					width={155}
+					height={250}
+					viewBox="0 0 155 265"
+					backgroundColor="#f3f3f3"
+					foregroundColor="#ecebeb">
+					<rect x="1" y="0" rx="10" ry="10" width="155" height="155"/>
+					<rect x="0" y="167" rx="5" ry="5" width="155" height="15"/>
+					<rect x="0" y="187" rx="5" ry="5" width="100" height="15"/>
+					<rect x="1" y="234" rx="5" ry="5" width="80" height="25"/>
+					<rect x="124" y="230" rx="10" ry="10" width="32" height="32"/>
+				</ContentLoader>
+			) : (
+				<>
+				<div onClick={onClickFavorite} className="card__favorite">
+					<img src={!isFavorite ? heartUnliked : heartLiked} alt="Unliked"/>
+				</div>
+				<img width={133} className='card__image' height={112} src={imageUrl} alt="item"/>
+				<h5 className='card__title'>{title}</h5>
+				<div className="card__label">
 				<div className="card__price">
-					<span>Цена:</span>
-					<b>{price} руб.</b>
+				<span>Цена:</span>
+				<b>{price} руб.</b>
 				</div>
 				<button onClick={addToCart} className="button ">
-					<img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11} src={!isAdded ? plus : checked}
-					     alt="add item to cart"/>
+				<img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11} src={!isAdded ? plus : checked}
+				alt="add item to cart"/>
 				</button>
-			</div>
+				</div>
+				</>
+				)}
+		
+		
 		</div>
 	);
 }

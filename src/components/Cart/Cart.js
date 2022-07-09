@@ -2,7 +2,7 @@ import btnRemove from '../../assets/img/btn-remove.svg'
 import arrow from '../../assets/img/arrow.svg'
 import clsx from "clsx";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Info from "../Info/Info";
 import completeOrder from '../../assets/img/complete-order.jpg'
 import emptyCart from '../../assets/img/empty-cart.jpg';
@@ -111,7 +111,7 @@ const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCart
 							description={
 								isOrderComplete
 									? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
-									: 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+									: 'Добавьте в корзину хотя бы 1 телефон, чтобы сделать заказ.'
 							}
 							image={isOrderComplete ? completeOrder : emptyCart}
 						/>

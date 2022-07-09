@@ -16,11 +16,18 @@
     flex: 1 1 100%;
   }
 
+  &__image {
+    align-self: center;
+    position: relative;
+    left: 5px;
+  }
+
 
   &__favorite {
     position: absolute;
     cursor: pointer;
     background-color: #F6F6F6;
+    z-index: 2;
   }
   &__label {
     display: flex;
@@ -47,3 +54,4 @@
     font-size: 14px;
   }
 }
+

@@ -10,6 +10,7 @@
   visibility: hidden;
   transition: all 0.5s;
   overflow: hidden;
+  z-index: 10;
 
   &__active {
     opacity: 1;
@@ -54,6 +55,9 @@
   padding: 30px;
   transition: all 0.5s;
   transform: translateX(451px);
+  @media (max-width: 479.98px){
+    width: 300px;
+  }
 
   &__active {
     transform: translateX(0);

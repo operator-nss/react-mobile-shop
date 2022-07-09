@@ -6,8 +6,8 @@ import ordersImage from '../../assets/img/orders.png'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Orders = ({orderId, setOrderId}) => {
-	const [orders, setOrders] = React.useState([]);
+const Orders = ({orderId, setOrderId, orders, setOrders}) => {
+	
 	const [isLoading, setIsLoading] = React.useState(true);
 	const loadingOrders = useRef(false);
 	
@@ -48,7 +48,7 @@ const Orders = ({orderId, setOrderId}) => {
 		<div className="orders">
 			<div className="orders__label">
 				<h1 className="orders__title">Мои заказы</h1>
-				<button className='orders__button blueButton' onClick={clearOrders}>Очистить заказы</button>
+				{orders.length > 0 && <button className='orders__button blueButton' onClick={clearOrders}>Очистить заказы</button>}
 			</div>
 			
 			<div className="orders__items">

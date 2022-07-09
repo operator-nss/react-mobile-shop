@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "title": "iPhone 13 Pro",
+    "price": 61200,
+    "realId": "1",
+    "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone13pro-202203?wid=340&hei=264&fmt=p-jpg&qlt=95&.v=1644989935267"
+  },
+  {
+    "id": "2",
+    "title": "iPhone 13",
+    "price": 40800,
+    "realId": "2",
+    "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone13-202203?wid=340&hei=264&fmt=p-jpg&qlt=95&.v=1646335268199"
+  },
+  {
+    "id": "3",
+    "title": "iPhone SE",
+    "price": 26200,
+    "realId": "3",
+    "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphonese-202203?wid=340&hei=264&fmt=jpeg&qlt=95&.v=1646415838921"
+  },
+  {
+    "id": "4",
+    "title": "iPhone 12",
+    "price": 36700,
+    "realId": "4",
+    "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone12purple-202109?wid=340&hei=264&fmt=p-jpg&qlt=95&.v=1646335268265"
+  },
+  {
+    "id": "5",
+    "title": "iPhone 11",
+    "price": 30500,
+    "realId": "5",
+    "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone-11-202108?wid=340&hei=264&fmt=p-jpg&qlt=95&.v=1646502984732"
+  },
+  {
+    "id": "6",
+    "title": "Galaxy S22 Ultra",
+    "price": 117999,
+    "realId": "6",
+    "imageUrl": "https://images.samsung.com/is/image/samsung/p6pim/ru/2202/gallery/ru-galaxy-s22-ultra-s908-sm-s908bdrgser-thumb-530892708?$160_160_PNG$"
+  },
+  {
+    "id": "7",
+    "title": "Galaxy S22",
+    "price": 112000,
+    "realId": "7",
+    "imageUrl": "https://images.samsung.com/is/image/samsung/p6pim/ru/2202/gallery/ru-galaxy-s22-plus-s906-sm-s906bidgser-thumb-530894559?$160_160_PNG$"
+  },
+  {
+    "id": "8",
+    "title": "Galaxy S21 FE 5G",
+    "price": 59950,
+    "realId": "8",
+    "imageUrl": "https://images.samsung.com/is/image/samsung/p6pim/ru/sm-g990blgdser/gallery/ru-galaxy-s21-fe-g990-sm-g990blgdser-thumb-530626048?$160_160_PNG$"
+  },
+  {
+    "id": "9",
+    "title": "Galaxy S20 FE",
+    "price": 23739,
+    "realId": "9",
+    "imageUrl": "https://images.samsung.com/is/image/samsung/p6pim/ru/sm-g780gzrmser/gallery/ru-galaxy-s20-fe-g780-352698-sm-g780gzrmser-thumb-456998733?$160_160_PNG$"
+  }
+]
