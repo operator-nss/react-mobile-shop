@@ -5,6 +5,7 @@ import checked from '../../assets/img/btn-checked.svg';
 import './card.scss';
 import {useEffect, useState} from "react";
 import ContentLoader from "react-content-loader";
+import {Link} from "react-router-dom";
 
 function Card({
 	              title,
@@ -72,23 +73,28 @@ function Card({
 				</ContentLoader>
 			) : (
 				<>
-				<div onClick={onClickFavorite} className="card__favorite">
-					<img src={!isFavorite ? heartUnliked : heartLiked} alt="Unliked"/>
-				</div>
-				<img width={133} className='card__image' height={112} src={imageUrl} alt="item"/>
-				<h5 className='card__title'>{title}</h5>
-				<div className="card__label">
-				<div className="card__price">
-				<span>Цена:</span>
-				<b>{price} руб.</b>
-				</div>
-				<button onClick={addToCart} className="button ">
-				<img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11} src={!isAdded ? plus : checked}
-				alt="add item to cart"/>
-				</button>
-				</div>
+					<div onClick={onClickFavorite} className="card__favorite">
+						<img src={!isFavorite ? heartUnliked : heartLiked} alt="Unliked"/>
+					</div>
+					
+					<Link to={`/phone/${id}`}>
+						<img width={133} className='card__image' height={112} src={imageUrl} alt="item"/>
+						<h5 className='card__title'>{title}</h5>
+					</Link>
+					
+					<div className="card__label">
+						<div className="card__price">
+							<span>Цена:</span>
+							<b>{price} руб.</b>
+						</div>
+						<button onClick={addToCart} className="button ">
+							<img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11}
+							     src={!isAdded ? plus : checked}
+							     alt="add item to cart"/>
+						</button>
+					</div>
 				</>
-				)}
+			)}
 		
 		
 		</div>

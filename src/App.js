@@ -10,6 +10,7 @@ import bgPhone1 from './assets/img/1iphone.png';
 import bgPhone2 from './assets/img/2iphone.png';
 import phone2 from './assets/img/phone2.png';
 import phone from './assets/img/phone.png';
+const FullPhone = React.lazy(() => import(/* webpackChunkName: "FullPhone" */'./pages/FullPhone/FullPhone'))
 
 
 const App = () => {
@@ -108,22 +109,22 @@ const App = () => {
 			<Cart setCartItems={setCartItems} orderId={orderId} setOrderId={setOrderId} cartItems={cartItems}
 			      deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
 			
-			<Header cartItems={cartItems} orders={orders} favoriteItems={favoriteItems}  setCartOpened={setCartOpened}/>
+			<Header cartItems={cartItems} orders={orders} favoriteItems={favoriteItems} setCartOpened={setCartOpened}/>
 			
 			
 			<Routes>
 				<Route path="/" element={
 					<Home
-					sneakers={sneakers}
-					loading={loading}
-					cartItems={cartItems}
-					favoriteItems={favoriteItems}
-					searchValue={searchValue}
-					setSearchValue={setSearchValue}
-					onAddToCart={onAddToCart}
-					addFavorite={addFavorite}
-					onChangeSearchInput={onChangeSearchInput}
-				/>}/>
+						sneakers={sneakers}
+						loading={loading}
+						cartItems={cartItems}
+						favoriteItems={favoriteItems}
+						searchValue={searchValue}
+						setSearchValue={setSearchValue}
+						onAddToCart={onAddToCart}
+						addFavorite={addFavorite}
+						onChangeSearchInput={onChangeSearchInput}
+					/>}/>
 				
 				<Route path="/favorites" element={<Favorites
 					sneakers={sneakers}
@@ -139,19 +140,30 @@ const App = () => {
 					<Orders
 						orders={orders}
 						setOrders={setOrders}
-					sneakers={sneakers}
-					cartItems={cartItems}
-					favoriteItems={favoriteItems}
-					searchValue={searchValue}
-					setSearchValue={setSearchValue}
-					onAddToCart={onAddToCart}
-					addFavorite={addFavorite}
-					orderId={orderId}
-					setOrderId={setOrderId}
-					onChangeSearchInput={onChangeSearchInput}/>}/>
-			</Routes>
+						sneakers={sneakers}
+						cartItems={cartItems}
+						favoriteItems={favoriteItems}
+						searchValue={searchValue}
+						setSearchValue={setSearchValue}
+						onAddToCart={onAddToCart}
+						addFavorite={addFavorite}
+						orderId={orderId}
+						setOrderId={setOrderId}
+						onChangeSearchInput={onChangeSearchInput}/>}/>
+				
+				
+				<Route path='phone/:id' element={
+					<React.Suspense fallback={<div>Загрузка...</div>}>
+						<FullPhone/>
+					</React.Suspense>
+				}/>
+
 		
-		</div>);
+		
+		</Routes>
+
+</div>)
+	;
 }
 
 
