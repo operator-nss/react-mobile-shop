@@ -1,0 +1,14 @@
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1 1;
+  &__image {
+    margin-bottom: 20px;
+    width: 120px;
+  }
+  &__text {
+    opacity: 0.6;
+  }
+}

@@ -1,15 +1,14 @@
-import Header from './components/Header';
-import Drawer from './components/Drawer';
+import Header from './components/Header/Header';
+import Cart from './components/Cart/Cart';
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
-import Favorites from "./pages/Favorites";
-import Home from "./pages/Home";
-import Orders from "./components/Orders/Orders";
+import Favorites from "./pages/Favorites/Favorites";
+import Home from "./pages/Home/Home";
+import Orders from "./pages/Orders/Orders";
 
 
 const App = () => {
-	
 	
 	
 	const [cartOpened, setCartOpened] = useState(false);
@@ -21,7 +20,7 @@ const App = () => {
 	const [orderId, setOrderId] = useState(null);
 	
 	useEffect(() => {
-		if(!loading.current) {
+		if (!loading.current) {
 			async function fetchData() {
 				try {
 					const [cartResponse, favoritesResponse, itemsResponse] = await Promise.all([
@@ -38,10 +37,11 @@ const App = () => {
 					console.error(error);
 				}
 			}
+			
 			fetchData();
 		}
 		loading.current = true
-
+		
 	}, [])
 	
 	const onAddToCart = (item) => {
@@ -52,6 +52,7 @@ const App = () => {
 				axios.post('https://62c0780cd40d6ec55cd18676.mockapi.io/cart', item)
 			} else {
 				const findItemToDelete = cartItems.find(obj => obj.title === item.title);
+				console.log(findItemToDelete)
 				const newArr = cartItems.filter(obj => item.realId !== obj.realId);
 				setCartItems([...newArr]);
 				axios.delete(`https://62c0780cd40d6ec55cd18676.mockapi.io/cart/${findItemToDelete.id}`)
@@ -65,7 +66,7 @@ const App = () => {
 	const deleteItem = (item) => {
 		const newArr = cartItems.filter(obj => obj.realId !== item.realId)
 		setCartItems([...newArr])
-		axios.delete(`https://62c0780cd40d6ec55cd18676.mockapi.io/cart/${item.realId}`)
+		axios.delete(`https://62c0780cd40d6ec55cd18676.mockapi.io/cart/${item.id}`)
 	}
 	
 	const onChangeSearchInput = (e) => {
@@ -75,7 +76,7 @@ const App = () => {
 	
 	const addFavorite = async (item) => {
 		try {
-			if(favoriteItems.some(obj => +obj.realId === +item.realId)) {
+			if (favoriteItems.some(obj => +obj.realId === +item.realId)) {
 				const newArr = favoriteItems.filter(obj => obj.realId !== item.realId);
 				const findItemToDelete = favoriteItems.find(obj => obj.title === item.title);
 				setFavoriteItems([...newArr]);
@@ -89,20 +90,17 @@ const App = () => {
 		}
 	}
 	
-	 
-	 
 	
 	return (
 		
 		
-		<div className="wrapper clear">
-		
-		<div>
-			<Drawer setCartItems={setCartItems} orderId={orderId} setOrderId={setOrderId} cartItems={cartItems} deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
-		</div>
-		
- 		<Header cartItems={cartItems} setCartOpened={setCartOpened}/>
-		
+		<div className="wrapper">
+			
+			<Cart setCartItems={setCartItems} orderId={orderId} setOrderId={setOrderId} cartItems={cartItems}
+			      deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
+			
+			<Header cartItems={cartItems} setCartOpened={setCartOpened}/>
+			
 			
 			<Routes>
 				<Route path="/" element={<Home
@@ -114,7 +112,7 @@ const App = () => {
 					onAddToCart={onAddToCart}
 					addFavorite={addFavorite}
 					onChangeSearchInput={onChangeSearchInput}
-				/>} />
+				/>}/>
 				
 				<Route path="/favorites" element={<Favorites
 					sneakers={sneakers}
@@ -124,7 +122,7 @@ const App = () => {
 					setSearchValue={setSearchValue}
 					onAddToCart={onAddToCart}
 					addFavorite={addFavorite}
-					onChangeSearchInput={onChangeSearchInput}/>} />
+					onChangeSearchInput={onChangeSearchInput}/>}/>
 				
 				<Route path="/orders" element={<Orders
 					sneakers={sneakers}
@@ -136,10 +134,10 @@ const App = () => {
 					addFavorite={addFavorite}
 					orderId={orderId}
 					setOrderId={setOrderId}
-					onChangeSearchInput={onChangeSearchInput}/>} />
+					onChangeSearchInput={onChangeSearchInput}/>}/>
 			</Routes>
 		
-	</div>);
+		</div>);
 }
 
 

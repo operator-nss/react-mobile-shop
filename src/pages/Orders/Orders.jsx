@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import axios from 'axios';
-import Card from "../Card/Card";
+import Card from "../../components/Card/Card";
+import './orders.scss';
+import ordersImage from '../../assets/img/orders.png'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -27,10 +29,11 @@ const Orders = ({orderId, setOrderId}) => {
 	}, []);
 	
 	const clearOrders = async () => {
+		console.log(orderId)
 		try {
 			setIsLoading(true);
-			for (let i = 0; i < orderId.length; i++) {
-				await axios.delete('https://62c0780cd40d6ec55cd18676.mockapi.io/orders/' + orderId.length);
+			for (let i = 1; i <= orderId; i++) {
+				await axios.delete('https://62c0780cd40d6ec55cd18676.mockapi.io/orders/' + i);
 				await delay(1000);
 			}
 			setOrders([]);
@@ -42,16 +45,23 @@ const Orders = ({orderId, setOrderId}) => {
 	};
 	
 	return (
-		<div className="content p-40">
-			<div className="d-flex align-center justify-between mb-40">
-				<h1>Мои заказы</h1>
-				<button onClick={clearOrders}>Очистить заказы</button>
+		<div className="orders">
+			<div className="orders__label">
+				<h1 className="orders__title">Мои заказы</h1>
+				<button className='orders__button blueButton' onClick={clearOrders}>Очистить заказы</button>
 			</div>
 			
-			<div className="d-flex flex-wrap">
-				{(isLoading ? [...Array(8)] : orders).map((item, index) => (
-					<Card key={index} loading={isLoading} {...item} />
-				))}
+			<div className="orders__items">
+				
+				{orders.length > 0 ? (
+					(isLoading ? [...Array(8)] : orders).map((item, index) => (
+						<Card key={index} loading={isLoading} {...item} />
+					))
+				) : (
+					<img className="orders__image" src={ordersImage} alt="out of orders"/>
+				)}
+				
+
 			</div>
 		</div>
 	);

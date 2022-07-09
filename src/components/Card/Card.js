@@ -53,19 +53,19 @@ function Card({
 	
 	return (
 		<div className="card">
-			<div onClick={onClickFavorite} className="favorite">
+			<div onClick={onClickFavorite} className="card__favorite">
 				<img src={!isFavorite ? heartUnliked : heartLiked} alt="Unliked"/>
 			</div>
-			<img width={133} height={112} src={imageUrl} alt="Sneakers"/>
-			<h5>{title}</h5>
-			<div className="d-flex justify-between align-center">
-				<div className="d-flex flex-column">
+			<img width={133} height={112} src={imageUrl} alt="item"/>
+			<h5 className='card__title'>{title}</h5>
+			<div className="card__label">
+				<div className="card__price">
 					<span>Цена:</span>
 					<b>{price} руб.</b>
 				</div>
 				<button onClick={addToCart} className="button ">
 					<img width={11} style={isAdded ? {width: 32, height: 32} : null} height={11} src={!isAdded ? plus : checked}
-					     alt="Plus"/>
+					     alt="add item to cart"/>
 				</button>
 			</div>
 		</div>

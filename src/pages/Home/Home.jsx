@@ -1,6 +1,7 @@
 import React from 'react';
-import search from "../assets/img/search.svg";
-import Card from "../components/Card/Card";
+import search from "../../assets/img/search.svg";
+import Card from "../../components/Card/Card";
+import './home.scss'
 
 const Home = ({
 	              sneakers,
@@ -15,16 +16,16 @@ const Home = ({
 	
 	return (
 		
-		<div className="content p-40">
-			<div className="d-flex align-center justify-between mb-40">
+		<div className="main">
+			<div className="main__label">
 				<h1>{searchValue ? `Поиск: "${searchValue}"` : 'Все кроссовки'}</h1>
-				<div className="search-block d-flex">
+				<div className="favorites__search">
 					<img src={search} alt="Search"/>
 					<input value={searchValue} onChange={onChangeSearchInput} placeholder="Поиск..."/>
 				</div>
 			</div>
 			
-			<div className="d-flex sneakers">
+			<div className="list__items">
 				
 				
 				{sneakers
