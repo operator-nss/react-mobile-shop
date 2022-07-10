@@ -6,6 +6,7 @@ import ordersImage from '../../assets/img/orders.png'
 import {useDispatch, useSelector} from "react-redux";
 import {setOrderId, setOrders, setStatusOrder} from "../../store/Slices/ordersSlice";
 import Preloader from "../../components/Preloader/Preloader";
+import {useAppDispatch} from "../../store/store";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -13,7 +14,7 @@ const Orders = () => {
 	
 	const loadingOrders = useRef(false);
 	const {orders, orderId, statusOrder} = useSelector(state => state.order);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	
 	
 	useEffect(() => {

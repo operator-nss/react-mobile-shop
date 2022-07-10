@@ -4,11 +4,17 @@ import Card from "../../components/Card/Card";
 import favoritesEmpty from '../../assets/img/favorite-empty.png'
 import './favorites.scss'
 import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/store";
+import {Phone} from "../../store/Slices/phoneSlice";
 
-const Favorites = ({ onAddToCart, addFavorite, onChangeSearchInput}) => {
+type FavoritesProps = {
+	onAddToCart:any, addFavorite:any, onChangeSearchInput:any
+}
+
+const Favorites:React.FC<FavoritesProps> = ({ onAddToCart, addFavorite, onChangeSearchInput}) => {
 	
-	const {favoriteItems, statusFavorites} = useSelector(state => state.favorite);
-	const {searchValue} = useSelector(state => state.phone);
+	const {favoriteItems, statusFavorites} = useSelector((state:RootState) => state.favorite);
+	const {searchValue} = useSelector((state:RootState) => state.phone);
 	
 	
 	const renderItems = () => {
@@ -17,8 +23,8 @@ const Favorites = ({ onAddToCart, addFavorite, onChangeSearchInput}) => {
 		return (statusFavorites === 'favorites loading' ? [...Array(4)] : filteredItems).map((item, index) => (
 			<Card
 				key={index}
-				addFavorite={(obj) => addFavorite(obj)}
-				onPlus={(obj) => onAddToCart(obj)}
+				addFavorite={(obj:Phone) => addFavorite(obj)}
+				onPlus={(obj:Phone) => onAddToCart(obj)}
 				{...item}
 			/>
 		));

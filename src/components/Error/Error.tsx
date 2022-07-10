@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Error = () => {
+const Error:React.FC = () => {
 	return (
 		<div>
 			Извините, что-то пошло не так :(

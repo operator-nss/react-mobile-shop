@@ -1,32 +1,36 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import axios from "axios";
 
 
-export const fetchPhones = createAsyncThunk(
+export const fetchPhones = createAsyncThunk<Phone[]>(
 	'pizza/fetchPhone',
 		async (_, {rejectWithValue}) => {
 		try {
-			// const [cartResponse, favoritesResponse, itemsResponse] = await Promise.all([
-			// 	axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/cart'),
-			// 	axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/favorites'),
-			// 	axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/items'),
-			// ]);
-			// setItems(itemsResponse)
 			const {data} = await axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/items');
 			return data;
-		} catch (e) {
+		} catch (e:any) {
 			return rejectWithValue(e.message);
 		}
 		}
 )
 
-export const setError = (state, action) => {
-	state.status = 'error';
-	state.error = action.payload;
+
+export interface Phone {
+	id: string,
+	imageUrl: string,
+	title: string,
+	price: number,
+	realId: string
 }
 
-const initialState = {
-	value: 0,
+interface PhonesInterface {
+	phones: Phone[],
+	searchValue: string,
+	status: string,
+	error: any
+}
+
+const initialState: PhonesInterface = {
 	phones: [],
 	searchValue: '',
 	status: 'phone loading',
@@ -37,7 +41,7 @@ export const phoneSlice = createSlice({
 	name: 'phone',
 	initialState,
 	reducers: {
-		setSearchValue: (state, action) => {
+		setSearchValue: (state, action:PayloadAction<string>) => {
 			state.searchValue = action.payload;
 		},
 	},
@@ -46,11 +50,14 @@ export const phoneSlice = createSlice({
 			state.status = 'phone loading';
 			state.phones = [];
 		})
-		builder.addCase(fetchPhones.fulfilled, (state, action) => {
+		builder.addCase(fetchPhones.fulfilled, (state, action:PayloadAction<Phone[]>) => {
 			state.phones = action.payload;
 			state.status = 'phone success';
 		})
-		builder.addCase(fetchPhones.rejected, setError)
+		builder.addCase(fetchPhones.rejected, (state, action:PayloadAction<any>) => {
+			state.status = 'error';
+			state.error = action.payload;
+		})
 	}
 	
 })

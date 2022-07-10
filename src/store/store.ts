@@ -3,6 +3,7 @@ import phone from './Slices/phoneSlice'
 import cart from './Slices/cartSlice'
 import favorite from './Slices/favoritesSlice'
 import order from './Slices/ordersSlice'
+import {useDispatch} from "react-redux";
 
 export const store = configureStore({
 	reducer: {
@@ -13,5 +14,6 @@ export const store = configureStore({
 	},
 })
 
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>()

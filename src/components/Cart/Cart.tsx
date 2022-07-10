@@ -2,7 +2,7 @@ import btnRemove from '../../assets/img/btn-remove.svg'
 import arrow from '../../assets/img/arrow.svg'
 import clsx from "clsx";
 import axios from "axios";
-import {useState} from "react";
+import React, {useState} from "react";
 import Info from "../Info/Info";
 import completeOrder from '../../assets/img/complete-order.jpg'
 import emptyCart from '../../assets/img/empty-cart.jpg';
@@ -10,16 +10,22 @@ import './cart.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {setCartItems, setCartOpened, setStatusCart} from "../../store/Slices/cartSlice";
 import {setOrderId} from "../../store/Slices/ordersSlice";
+import {RootState, useAppDispatch} from "../../store/store";
+import {Phone} from "../../store/Slices/phoneSlice";
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms:number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Cart = ({deleteItem}) => {
+type CartProps = {
+	deleteItem: any
+}
+
+const Cart:React.FC<CartProps> = ({deleteItem}) => {
 	
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
-	const {cartItems, cartOpened, statusCart} = useSelector(state => state.cart);
-	const {orderId} = useSelector(state => state.order);
+	const {cartItems, cartOpened, statusCart} = useSelector((state:RootState) => state.cart);
+	const {orderId} = useSelector((state:RootState) => state.order);
 	
 	function calcCart() {
 		return cartItems.reduce((num, item) =>
@@ -112,7 +118,7 @@ const Cart = ({deleteItem}) => {
 					: (
 						<Info
 							title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-							setCartOpened={setCartOpened}
+							// setCartOpened={setCartOpened}
 							setIsOrderComplete={setIsOrderComplete}
 							description={
 								isOrderComplete

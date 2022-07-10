@@ -1,23 +1,28 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import axios from "axios";
-import {setError} from "./phoneSlice";
-import {fetchCart} from "./cartSlice";
+import {Phone} from "./phoneSlice";
 
 
-export const fetchFavorites = createAsyncThunk(
+export const fetchFavorites = createAsyncThunk<Phone[]>(
 	'pizza/fetchFavorites',
 	async (_, {rejectWithValue}) => {
 		try {
 			const {data} = await axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/favorites');
 			return data;
-		} catch (e) {
+		} catch (e: any) {
 			return rejectWithValue(e.message);
 		}
 	}
 )
 
 
-const initialState = {
+interface FavoritesInterface {
+	favoriteItems: Phone[],
+	statusFavorites: string,
+}
+
+
+const initialState: FavoritesInterface = {
 	favoriteItems: [],
 	statusFavorites: 'favorites idle',
 }
@@ -26,10 +31,10 @@ export const favoritesSlice = createSlice({
 	name: 'favorite',
 	initialState,
 	reducers: {
-		setFavoriteItems: (state, action) => {
+		setFavoriteItems: (state, action:PayloadAction<Phone[]>) => {
 			state.favoriteItems = action.payload;
 		},
-		setStatusFavorites: (state, action) => {
+		setStatusFavorites: (state, action:PayloadAction<string>) => {
 			state.statusFavorites = action.payload;
 		},
 	},
@@ -38,11 +43,13 @@ export const favoritesSlice = createSlice({
 			state.favoriteItems = [];
 			state.statusFavorites = 'favorites loading';
 		})
-		builder.addCase(fetchFavorites.fulfilled, (state, action) => {
+		builder.addCase(fetchFavorites.fulfilled, (state, action:PayloadAction<Phone[]>) => {
 			state.favoriteItems = action.payload;
 			state.statusFavorites = 'favorites success'
 		})
-		builder.addCase(fetchFavorites.rejected, setError)
+		builder.addCase(fetchFavorites.rejected, (state, action:PayloadAction<any>) => {
+			console.log(action.payload)
+		})
 	}
 })
 

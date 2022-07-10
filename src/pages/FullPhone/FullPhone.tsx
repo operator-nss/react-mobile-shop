@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import './fullPhone.scss'
+import {Phone} from "../../store/Slices/phoneSlice";
 
 const FullPhone = () => {
 	
-	const [phone, setPhone] = useState();
+	const [phone, setPhone] = useState<Phone>();
 	
 	const {id} = useParams();
 	const navigate = useNavigate();

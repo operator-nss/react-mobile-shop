@@ -7,34 +7,35 @@ import user from '../../assets/img/user.png';
 import userH from '../../assets/img/user-h.png';
 import {Link} from "react-router-dom";
 import './header.scss'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {setCartOpened} from "../../store/Slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {RootState, useAppDispatch} from "../../store/store";
 
 
-function Header() {
-	
+const Header:React.FC = () => {
+
 	const [overFavorites, setOverFavorites] = useState(false);
 	const [overUser, setOverUser] = useState(false);
 	const [overCart, setOverCart] = useState(false);
-	
-	const dispatch = useDispatch();
-	const {cartItems} = useSelector(state => state.cart);
-	const {favoriteItems} = useSelector(state => state.favorite);
-	const {orders} = useSelector(state => state.order);
-	
+
+	const dispatch = useAppDispatch();
+	const {cartItems} = useSelector((state:RootState) => state.cart);
+	const {favoriteItems} = useSelector((state:RootState) => state.favorite);
+	const {orders} = useSelector((state:RootState) => state.order);
+
 	const openCart = () => {
-		dispatch(setCartOpened());
+		dispatch(setCartOpened(true));
 		document.documentElement.classList.add('lock');
 	 }
-	
+
 	useEffect(() => {
 		cartItems.length > 0 ? setOverCart(true) : setOverCart(false)
 		favoriteItems.length > 0 ? setOverFavorites(true) : setOverFavorites(false)
 		orders.length > 0 ? setOverUser(true) : setOverUser(false)
 	}, [cartItems.length, favoriteItems.length, orders.length])
-	 
-	
+
+
 	return (
 		<header className="header">
 			<Link to='/' className="header__label">
@@ -48,7 +49,7 @@ function Header() {
 				<li onMouseOver={() => setOverCart(true)}
 				    onMouseOut={() => setOverCart(false)}  onClick={openCart} className="header__cart">
 					<img width={18} height={18}
-					     
+
 					     alt='cart image' src={overCart ? cartImageH : cartImage }/>
 					<span>{cartItems.reduce((num, item) =>num + item.price, 0)}руб.</span>
 				</li>
@@ -69,6 +70,6 @@ function Header() {
 			</ul>
 		</header>
 	);
-}
+};
 
 export default Header;

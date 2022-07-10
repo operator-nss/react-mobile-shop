@@ -1,22 +1,27 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import axios from "axios";
-import {setError} from "./phoneSlice";
+import {Phone} from "./phoneSlice";
 
 
-export const fetchCart = createAsyncThunk(
+export const fetchCart = createAsyncThunk<Phone[]>(
 	'pizza/fetchCart',
 	async (_, {rejectWithValue}) => {
 		try {
 			const {data} = await axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/cart');
 			return data;
-		} catch (e) {
+		} catch (e: any) {
 			return rejectWithValue(e.message);
 		}
 	}
 )
 
+interface CartInterface {
+	cartOpened: boolean,
+	cartItems: Phone[],
+	statusCart: string,
+}
 
-const initialState = {
+const initialState: CartInterface = {
 	cartOpened: false,
 	cartItems: [],
 	statusCart: 'cart idle',
@@ -26,13 +31,13 @@ export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		setCartItems: (state, action) => {
+		setCartItems: (state, action:PayloadAction<Phone[]>) => {
 			state.cartItems = action.payload;
 		},
-		setCartOpened: (state) => {
-			state.cartOpened = !state.cartOpened;
+		setCartOpened: (state, action:PayloadAction<boolean>) => {
+		state.cartOpened = action.payload
 		},
-		setStatusCart: (state, action) => {
+		setStatusCart: (state, action:PayloadAction<string>) => {
 			state.statusCart = action.payload;
 		},
 		
@@ -41,10 +46,12 @@ export const cartSlice = createSlice({
 		builder.addCase(fetchCart.pending, (state) => {
 			state.cartItems = [];
 		})
-		builder.addCase(fetchCart.fulfilled, (state, action) => {
+		builder.addCase(fetchCart.fulfilled, (state, action:PayloadAction<Phone[]>) => {
 			state.cartItems = action.payload;
 		})
-		builder.addCase(fetchCart.rejected, setError)
+		builder.addCase(fetchCart.rejected, (state, action:PayloadAction<any>) => {
+			console.log(action.payload)
+		})
 	}
 })
 

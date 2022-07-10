@@ -4,14 +4,19 @@ import './info.scss'
 import {setCartOpened} from "../../store/Slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../Preloader/Preloader";
+import {RootState, useAppDispatch} from "../../store/store";
 
-const Info = ({title, image, description, setIsOrderComplete}) => {
+type InfoProps = {
+	title: string, image: string, description: string, setIsOrderComplete: any
+}
+
+const Info:React.FC<InfoProps> = ({title, image, description, setIsOrderComplete}) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const { statusCart } = useSelector(state => state.cart);
+	const dispatch = useAppDispatch();
+	const { statusCart } = useSelector((state:RootState) => state.cart);
 	
 	const onClickOrder = () => {
-		dispatch(setCartOpened())
+		dispatch(setCartOpened(false))
 	
 		navigate("/orders");
 		setTimeout(() => {
