@@ -51,6 +51,7 @@ export const cartSlice = createSlice({
 		})
 		builder.addCase(fetchCart.rejected, (state, action:PayloadAction<any>) => {
 			console.log(action.payload)
+			state.statusCart = 'error';
 		})
 	}
 })

@@ -26,8 +26,8 @@ const Orders = () => {
 					dispatch(setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], [])));
 					dispatch(setStatusOrder('success'));
 				} catch (error) {
-					alert('Ошибка при запросе заказов');
 					console.error(error);
+					dispatch(setStatusOrder('order error'));
 				}
 			})();
 		}
@@ -68,7 +68,7 @@ const Orders = () => {
 				) : (
 					<div className='orders__out'>
 					<img className="orders__image" src={ordersImage} alt="out of orders"/>
-					<h2>К сожалению вы еще не делали заказ</h2>
+						{statusOrder === 'order error' ? <h2>Ошибка при получении списка заказов</h2> : <h2>К сожалению вы еще не делали заказ</h2>}
 					</div>
 				)}
 				

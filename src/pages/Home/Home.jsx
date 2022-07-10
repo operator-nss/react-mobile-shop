@@ -4,6 +4,7 @@ import Card from "../../components/Card/Card";
 import './home.scss'
 import {useSelector} from "react-redux";
 import Error from "../../components/Error/Error";
+import Info from "../../components/Info/Info";
 
 const Home = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
 	
@@ -23,10 +24,12 @@ const Home = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
 			/>
 		));
 	 }
+
 	
 	return (
-		
+	
 		<div className="main">
+
 			<div className="main__label">
 				<h1>{searchValue ? `Поиск: "${searchValue}"` : 'Все телефоны'}</h1>
 				<div className="favorites__search">

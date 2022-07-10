@@ -38,19 +38,19 @@ export const favoritesSlice = createSlice({
 			state.statusFavorites = action.payload;
 		},
 	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchFavorites.pending, (state) => {
-			state.favoriteItems = [];
-			state.statusFavorites = 'favorites loading';
-		})
-		builder.addCase(fetchFavorites.fulfilled, (state, action:PayloadAction<Phone[]>) => {
-			state.favoriteItems = action.payload;
-			state.statusFavorites = 'favorites success'
-		})
-		builder.addCase(fetchFavorites.rejected, (state, action:PayloadAction<any>) => {
-			console.log(action.payload)
-		})
-	}
+	// extraReducers: (builder) => {
+	// 	builder.addCase(fetchFavorites.pending, (state) => {
+	// 		state.favoriteItems = [];
+	// 		state.statusFavorites = 'favorites loading';
+	// 	})
+	// 	builder.addCase(fetchFavorites.fulfilled, (state, action:PayloadAction<Phone[]>) => {
+	// 		state.favoriteItems = action.payload;
+	// 		state.statusFavorites = 'favorites success'
+	// 	})
+	// 	builder.addCase(fetchFavorites.rejected, (state, action:PayloadAction<any>) => {
+	// 		console.log(action.payload)
+	// 	})
+	// }
 })
 
 export const { setFavoriteItems, setStatusFavorites } = favoritesSlice.actions
