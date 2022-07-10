@@ -9,7 +9,7 @@
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.06);
     transform: translateY(-5px);
   }
   &__title {
@@ -19,15 +19,17 @@
   &__image {
     align-self: center;
     position: relative;
-    left: 5px;
+    left: 25px;
   }
 
 
   &__favorite {
     position: absolute;
     cursor: pointer;
-    background-color: #F6F6F6;
+    background-color: #fff;
     z-index: 2;
+    outline: none;
+    border:none;
   }
   &__label {
     display: flex;

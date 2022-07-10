@@ -187,14 +187,22 @@ header {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.1s ease-in-out;
-
+  img {
+    transition: all 0.3s ease 0s;
+  }
+  &:disabled {
+    background: rgba(70, 73, 77, 0.23);
+    img{
+      opacity: 0;
+    }
+  }
   &:hover {
     background: lighten(#2A4EC4, 5%);
+    img {
+      transform: translate(50%, 0px);
+    }
   }
 
-  &:active {
-    background: darken(#9dd558, 5%);
-  }
 }
 
 .cartItem {

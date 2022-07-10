@@ -1,13 +1,17 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import './info.scss'
+import {setCartOpened} from "../../store/Slices/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
+import Preloader from "../Preloader/Preloader";
 
-const Info = ({title, image, description, setCartOpened, setIsOrderComplete}) => {
+const Info = ({title, image, description, setIsOrderComplete}) => {
 	const navigate = useNavigate();
-	
+	const dispatch = useDispatch();
+	const { statusCart } = useSelector(state => state.cart);
 	
 	const onClickOrder = () => {
-		setCartOpened(false)
+		dispatch(setCartOpened())
 	
 		navigate("/orders");
 		setTimeout(() => {
@@ -19,12 +23,15 @@ const Info = ({title, image, description, setCartOpened, setIsOrderComplete}) =>
 	
 	return (
 		<div className="info ">
-			<img className="info__image " src={image} alt="Empty"/>
-			<h2 className=''>{title}</h2>
-			<p className="info__text ">{description}</p>
-			<button onClick={onClickOrder} className="blueButton ">
-				Посмотреть свои заказы
-			</button>
+			{
+				statusCart === 'cart loading' ? <Preloader /> : <><img className="info__image " src={image} alt="Empty"/>
+					<h2 className=''>{title}</h2>
+					<p className="info__text ">{description}</p>
+					<button onClick={onClickOrder} className="blueButton ">
+						Посмотреть свои заказы
+					</button></>
+			}
+			
 		</div>
 	);
 };

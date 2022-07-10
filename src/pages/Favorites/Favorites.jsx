@@ -3,19 +3,27 @@ import search from "../../assets/img/search.svg";
 import Card from "../../components/Card/Card";
 import favoritesEmpty from '../../assets/img/favorite-empty.png'
 import './favorites.scss'
-import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
-const Favorites = ({
-	                   sneakers,
-	                   cartItems,
-	                   favoriteItems,
-	                   searchValue,
-	                   setSearchValue,
-	                   onAddToCart,
-	                   addFavorite,
-	                   onChangeSearchInput
-                   }
-	) => {
+const Favorites = ({ onAddToCart, addFavorite, onChangeSearchInput}) => {
+	
+	const {favoriteItems, statusFavorites} = useSelector(state => state.favorite);
+	const {searchValue} = useSelector(state => state.phone);
+	
+	
+	const renderItems = () => {
+		const filteredItems = favoriteItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+		
+		return (statusFavorites === 'favorites loading' ? [...Array(4)] : filteredItems).map((item, index) => (
+			<Card
+				key={index}
+				addFavorite={(obj) => addFavorite(obj)}
+				onPlus={(obj) => onAddToCart(obj)}
+				{...item}
+			/>
+		));
+	}
+	
 		return (
 			<div className="favorites">
 				<div className="favorites__label">
@@ -28,20 +36,7 @@ const Favorites = ({
 				
 				<div className="list__items">
 					
-					{favoriteItems.length > 0 ? (
-						favoriteItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-							.map((item) => {
-								return <Card
-									cartItems={cartItems}
-									favoriteItems={favoriteItems}
-									onPlus={(item) => onAddToCart(item)}
-									addFavorite={(item) => addFavorite(item)}
-									key={item.realId}
-									favorited={true}
-									{...item}
-								/>
-							})
-					) : (
+					{favoriteItems.length > 0 ? (renderItems()) : (
 						<>
 						<h4 className='favorites__empty'>
 							<img className='favorites__image' src={favoritesEmpty} alt=""/>
@@ -51,14 +46,9 @@ const Favorites = ({
 						
 						</>
 					)}
-				
-				
+					
 				</div>
-				<Link to='/'>
-					<button className='favorites__button blueButton'>
-						Вернуться на главную страницу
-					</button>
-				</Link>
+
 			</div>
 		);
 	}

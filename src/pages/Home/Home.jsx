@@ -2,18 +2,27 @@ import React from 'react';
 import search from "../../assets/img/search.svg";
 import Card from "../../components/Card/Card";
 import './home.scss'
+import {useSelector} from "react-redux";
+import Error from "../../components/Error/Error";
 
-const Home = ({
-	              sneakers,
-	              cartItems,
-	              favoriteItems,
-	              searchValue,
-	              onAddToCart,
-	              addFavorite,
-	              onChangeSearchInput,
-	              loading
-              }) => {
+const Home = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
 	
+	const {error, status} = useSelector(state => state.phone);
+	const {phones, searchValue} = useSelector(state => state.phone);
+	
+	
+	const renderItems = () => {
+		const filteredItems = phones.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+		
+		return (status === 'phone loading' ? [...Array(8)] : filteredItems).map((item, index) => (
+			<Card
+				key={index}
+				addFavorite={(obj) => addFavorite(obj)}
+				onPlus={(obj) => onAddToCart(obj)}
+				{...item}
+			/>
+		));
+	 }
 	
 	return (
 		
@@ -26,28 +35,7 @@ const Home = ({
 				</div>
 			</div>
 			
-			<div className="list__items">
-				
-				
-				{sneakers
-					.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-					.map((item) => {
-						return <Card
-							loading={loading}
-							cartItems={cartItems}
-							favoriteItems={favoriteItems}
-							onPlus={(item) => onAddToCart(item)}
-							addFavorite={(item) => addFavorite(item)}
-							key={item.realId}
-							id={item.id}
-							realId={item.realId}
-							title={item.title}
-							price={item.price}
-							imageUrl={item.imageUrl}/>
-					})}
-			
-			
-			</div>
+			{error ? <Error /> : <div className="list__items">{renderItems()}</div>}
 		</div>
 	);
 };

@@ -8,16 +8,23 @@ import userH from '../../assets/img/user-h.png';
 import {Link} from "react-router-dom";
 import './header.scss'
 import {useEffect, useState} from "react";
+import {setCartOpened} from "../../store/Slices/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 
-function Header({setCartOpened, cartItems, orders, favoriteItems}) {
+function Header() {
+	
 	const [overFavorites, setOverFavorites] = useState(false);
 	const [overUser, setOverUser] = useState(false);
 	const [overCart, setOverCart] = useState(false);
 	
+	const dispatch = useDispatch();
+	const {cartItems} = useSelector(state => state.cart);
+	const {favoriteItems} = useSelector(state => state.favorite);
+	const {orders} = useSelector(state => state.order);
 	
 	const openCart = () => {
-		setCartOpened(true);
+		dispatch(setCartOpened());
 		document.documentElement.classList.add('lock');
 	 }
 	
@@ -38,10 +45,10 @@ function Header({setCartOpened, cartItems, orders, favoriteItems}) {
 				</div>
 			</Link>
 			<ul  className="header__list">
-				<li  onClick={openCart} className="header__cart">
+				<li onMouseOver={() => setOverCart(true)}
+				    onMouseOut={() => setOverCart(false)}  onClick={openCart} className="header__cart">
 					<img width={18} height={18}
-					     onMouseOver={() => setOverCart(true)}
-					     onMouseOut={() => setOverCart(false)}
+					     
 					     alt='cart image' src={overCart ? cartImageH : cartImage }/>
 					<span>{cartItems.reduce((num, item) =>num + item.price, 0)}руб.</span>
 				</li>

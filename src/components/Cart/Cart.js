@@ -7,13 +7,19 @@ import Info from "../Info/Info";
 import completeOrder from '../../assets/img/complete-order.jpg'
 import emptyCart from '../../assets/img/empty-cart.jpg';
 import './cart.scss'
+import {useDispatch, useSelector} from "react-redux";
+import {setCartItems, setCartOpened, setStatusCart} from "../../store/Slices/cartSlice";
+import {setOrderId} from "../../store/Slices/ordersSlice";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCartOpened, cartOpened}) => {
+const Cart = ({deleteItem}) => {
+	
+	const dispatch = useDispatch();
 	
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const {cartItems, cartOpened, statusCart} = useSelector(state => state.cart);
+	const {orderId} = useSelector(state => state.order);
 	
 	function calcCart() {
 		return cartItems.reduce((num, item) =>
@@ -24,13 +30,13 @@ const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCart
 	
 	const onClickOrder = async () => {
 		try {
-			setIsLoading(true);
+			dispatch(setStatusCart('cart loading'));
 			const {data} = await axios.post('https://62c0780cd40d6ec55cd18676.mockapi.io/orders', {
 				items: cartItems,
 			});
-			setOrderId(data.id);
+			dispatch(setOrderId(data.id));
 			setIsOrderComplete(true);
-			setCartItems([]);
+			dispatch(setCartItems([]));
 			
 			for (let i = 0; i < cartItems.length; i++) {
 				const item = cartItems[i];
@@ -40,16 +46,17 @@ const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCart
 		} catch (error) {
 			alert('Ошибка при создании заказа :(');
 		}
-		setIsLoading(false);
+		dispatch(setStatusCart('cart success'));
 	};
 	
 	
 	const closeCart = () => {
-		setCartOpened(false)
+		
+		dispatch(setCartOpened(false));
 		setTimeout(() => {
 			document.documentElement.classList.remove('lock');
-		},550)
-
+		}, 550)
+		
 	}
 	
 	return (
@@ -96,14 +103,13 @@ const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCart
 										<b>{(calcCart() * 0.05).toFixed()} руб. </b>
 									</li>
 								</ul>
-								<button onClick={onClickOrder} className="blueButton">
+								<button onClick={onClickOrder} disabled={statusCart === 'cart loading'} className="blueButton">
 									Оформить заказ <img src={arrow} alt="Arrow"/>
 								</button>
 							</div>
 						</>
 					)
 					: (
-						
 						<Info
 							title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
 							setCartOpened={setCartOpened}
@@ -115,6 +121,7 @@ const Cart = ({orderId, setOrderId, cartItems, setCartItems, deleteItem, setCart
 							}
 							image={isOrderComplete ? completeOrder : emptyCart}
 						/>
+					
 					)}
 			
 			

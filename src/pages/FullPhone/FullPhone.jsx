@@ -25,7 +25,7 @@ const FullPhone = () => {
 	}, [])
 	
 	if (!phone) {
-		return <div>'Загрузка...'</div>
+		return <div style={{padding: 40}}>'Загрузка...'</div>
 	}
 	
 	return (
