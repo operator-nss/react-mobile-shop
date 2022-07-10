@@ -8,8 +8,9 @@ import Home from "./pages/Home/Home";
 import Orders from "./pages/Orders/Orders";
 import bgPhone1 from './assets/img/1iphone.png';
 import bgPhone2 from './assets/img/2iphone.png';
-import phone2 from './assets/img/phone2.png';
 import phone from './assets/img/phone.png';
+import clsx from "clsx";
+
 const FullPhone = React.lazy(() => import(/* webpackChunkName: "FullPhone" */'./pages/FullPhone/FullPhone'))
 
 
@@ -25,7 +26,22 @@ const App = () => {
 	const [orderId, setOrderId] = useState(null);
 	const [orders, setOrders] = React.useState([]);
 	
+	const bgRef = useRef(false);
+
+	
+
+	
+
+	
 	useEffect(() => {
+		
+		if(!bgRef.current) {
+			bgRef.current = true
+		}
+		
+
+
+		
 		if (!loading.current) {
 			async function fetchData() {
 				try {
@@ -48,7 +64,7 @@ const App = () => {
 		}
 		
 		loading.current = true
-		
+
 	}, [])
 	
 	const onAddToCart = (item) => {
@@ -101,10 +117,9 @@ const App = () => {
 		
 		<div className="wrapper">
 			
-			<img className='bg bg1' src={bgPhone1} alt="background-phone"/>
-			<img className='bg bg2' src={bgPhone2} alt="background-phone"/>
-			<img className='bg bg3' src={phone} alt="background-phone"/>
-			<img className='bg bg4' src={phone2} alt="background-phone"/>
+			<img className={clsx({active: bgRef.current}, 'bg bg1')} src={bgPhone1} alt="background-phone"/>
+			<img className={clsx({active: bgRef.current}, 'bg bg2')} src={bgPhone2} alt="background-phone"/>
+			<img className={clsx({active: bgRef.current}, 'bg bg3')} src={phone} alt="background-phone"/>
 			
 			<Cart setCartItems={setCartItems} orderId={orderId} setOrderId={setOrderId} cartItems={cartItems}
 			      deleteItem={deleteItem} cartOpened={cartOpened} setCartOpened={setCartOpened}/>
@@ -157,13 +172,12 @@ const App = () => {
 						<FullPhone/>
 					</React.Suspense>
 				}/>
-
+			
+			
+			</Routes>
 		
-		
-		</Routes>
-
-</div>)
-	;
+		</div>)
+		;
 }
 
 

@@ -32,7 +32,7 @@ const FullPhone = () => {
 		<div className={'phone'}>
 			<img className='phone__image' src={phone.imageUrl} alt=""/>
 			<h2 className='phone__title'>Телефон {phone.title}</h2>
-			<h3 className='phone__price'>{phone.price}руб.</h3>
+			<h3 className='phone__price'>Цена {phone.price}руб.</h3>
 		</div>
 	)
 };
