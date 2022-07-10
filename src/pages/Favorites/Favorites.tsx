@@ -3,7 +3,7 @@ import search from "../../assets/img/search.svg";
 import Card from "../../components/Card/Card";
 import favoritesEmpty from '../../assets/img/favorite-empty.png'
 import './favorites.scss'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import {Phone} from "../../store/Slices/phoneSlice";
 

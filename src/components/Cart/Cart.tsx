@@ -7,11 +7,10 @@ import Info from "../Info/Info";
 import completeOrder from '../../assets/img/complete-order.jpg'
 import emptyCart from '../../assets/img/empty-cart.jpg';
 import './cart.scss'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {setCartItems, setCartOpened, setStatusCart} from "../../store/Slices/cartSlice";
 import {setOrderId} from "../../store/Slices/ordersSlice";
 import {RootState, useAppDispatch} from "../../store/store";
-import {Phone} from "../../store/Slices/phoneSlice";
 
 const delay = (ms:number) => new Promise((resolve) => setTimeout(resolve, ms));
 

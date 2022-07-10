@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import './header.scss'
 import React, {useEffect, useState} from "react";
 import {setCartOpened} from "../../store/Slices/cartSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../store/store";
 
 

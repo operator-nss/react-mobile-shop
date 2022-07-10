@@ -10,43 +10,38 @@ import bgPhone1 from './assets/img/1iphone.png';
 import bgPhone2 from './assets/img/2iphone.png';
 import phone from './assets/img/phone.png';
 import clsx from "clsx";
-import {fetchPhones, Phone, setSearchValue} from "./store/Slices/phoneSlice";
+import {Phone, setSearchValue} from "./store/Slices/phoneSlice";
 import {useSelector} from "react-redux";
-import {fetchCart, setCartItems, setStatusCart} from "./store/Slices/cartSlice";
-import {fetchFavorites, setFavoriteItems, setStatusFavorites} from "./store/Slices/favoritesSlice";
+import { setCartItems, setStatusCart} from "./store/Slices/cartSlice";
+import {setFavoriteItems, setStatusFavorites} from "./store/Slices/favoritesSlice";
 import {RootState, useAppDispatch} from "./store/store";
+import {fetchCart, fetchFavorites, fetchPhones} from "./store/asyndActions";
+import Preloader from "./components/Preloader/Preloader";
 
 const FullPhone = React.lazy(() => import(/* webpackChunkName: "FullPhone" */'./pages/FullPhone/FullPhone'))
 
 
 const App = () => {
 	const dispatch = useAppDispatch();
-	
-	
 	const {cartItems} = useSelector((state:RootState) => state.cart);
 	const {favoriteItems} = useSelector((state:RootState) => state.favorite);
-	
 	const loading = useRef(false);
-
 	const bgRef = useRef(false);
 	
 	useEffect(() => {
 		if (!bgRef.current) {
 			bgRef.current = true
 		}
-		
 		if (!loading.current) {
 			dispatch(fetchPhones());
 			dispatch(fetchCart());
-			dispatch(fetchFavorites())
-			
+			dispatch(fetchFavorites());
 		}
 		loading.current = true
 		
 	}, [])
 	
-	
-	const deleteItem = (item:Phone) => {
+		const deleteItem = (item:Phone) => {
 		const newArr = cartItems.filter(obj => obj.realId !== item.realId)
 		dispatch(setCartItems([...newArr]))
 		axios.delete(`https://62c0780cd40d6ec55cd18676.mockapi.io/cart/${item.id}`)
@@ -123,14 +118,14 @@ const App = () => {
 				
 				<Route path="/orders" element={
 					<Orders
-						// onAddToCart={onAddToCart}
-						// addFavorite={addFavorite}
-						// onChangeSearchInput={onChangeSearchInput}
+						onAddToCart={onAddToCart}
+						addFavorite={addFavorite}
+						onChangeSearchInput={onChangeSearchInput}
 					/>}/>
 				
 				
 				<Route path='phone/:id' element={
-					<React.Suspense fallback={<div>Загрузка...</div>}>
+					<React.Suspense fallback={<div><Preloader /></div>}>
 						<FullPhone/>
 					</React.Suspense>
 				}/>

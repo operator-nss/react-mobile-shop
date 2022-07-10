@@ -17,14 +17,14 @@ export const fetchOrders = createAsyncThunk<any[]>(
 
 interface OrdersInterface {
 	orders: Phone[],
-	orderId: null | number,
+	orderId: number,
 	statusOrder: string,
 }
 
 
 const initialState: OrdersInterface = {
 	orders: [],
-	orderId: null,
+	orderId: 0,
 	statusOrder: 'idle'
 }
 
@@ -35,7 +35,7 @@ export const ordersSlice = createSlice({
 		setOrders: (state, action:PayloadAction<any[]>) => {
 			state.orders = action.payload;
 		},
-		setOrderId: (state, action:PayloadAction<null | number>) => {
+		setOrderId: (state, action:PayloadAction<number>) => {
 			state.orderId = action.payload;
 		},
 		setStatusOrder: (state, action:PayloadAction<string>) => {
@@ -47,7 +47,7 @@ export const ordersSlice = createSlice({
 			state.orders = [];
 		})
 		builder.addCase(fetchOrders.fulfilled, (state, action) => {
-			state.orders = action.payload;
+			state.orders = action.payload.reduce((prev: any, obj: any) => [...prev, ...obj.items], []);
 		})
 		builder.addCase(fetchOrders.rejected, (state, action:PayloadAction<any>) => {
 			console.log(action.payload)

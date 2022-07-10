@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import './fullPhone.scss'
 import {Phone} from "../../store/Slices/phoneSlice";
+import Preloader from "../../components/Preloader/Preloader";
 
 const FullPhone = () => {
 	
@@ -21,19 +22,17 @@ const FullPhone = () => {
 				navigate('/');
 			}
 		}
-		
 		fetchPhone();
 	}, [])
-	
-	if (!phone) {
-		return <div style={{padding: 40}}>'Загрузка...'</div>
-	}
+
 	
 	return (
-		<div className={'phone'}>
-			<img className='phone__image' src={phone.imageUrl} alt=""/>
-			<h2 className='phone__title'>Телефон {phone.title}</h2>
-			<h3 className='phone__price'>Цена {phone.price}руб.</h3>
+		<div className='phone'>
+			{!phone ? <Preloader /> :
+				<>            <img className='phone__image' src={phone.imageUrl} alt=""/>
+					<h2 className='phone__title'>Телефон {phone.title}</h2>
+					<h3 className='phone__price'>Цена {phone.price}руб.</h3></>
+			}
 		</div>
 	)
 };

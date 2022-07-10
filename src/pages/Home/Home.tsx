@@ -4,12 +4,17 @@ import Card from "../../components/Card/Card";
 import './home.scss'
 import {useSelector} from "react-redux";
 import Error from "../../components/Error/Error";
-import Info from "../../components/Info/Info";
+import {RootState} from "../../store/store";
+import {Phone} from "../../store/Slices/phoneSlice";
 
-const Home = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
+type HomeProps = {
+	onAddToCart:any, addFavorite:any, onChangeSearchInput:any
+}
+
+const Home:React.FC<HomeProps> = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
 	
-	const {error, status} = useSelector(state => state.phone);
-	const {phones, searchValue} = useSelector(state => state.phone);
+	const {error, status} = useSelector((state:RootState) => state.phone);
+	const {phones, searchValue} = useSelector((state:RootState) => state.phone);
 	
 	
 	const renderItems = () => {
@@ -18,8 +23,8 @@ const Home = ({ onAddToCart, addFavorite, onChangeSearchInput }) => {
 		return (status === 'phone loading' ? [...Array(8)] : filteredItems).map((item, index) => (
 			<Card
 				key={index}
-				addFavorite={(obj) => addFavorite(obj)}
-				onPlus={(obj) => onAddToCart(obj)}
+				addFavorite={(obj:Phone) => addFavorite(obj)}
+				onPlus={(obj:Phone) => onAddToCart(obj)}
 				{...item}
 			/>
 		));

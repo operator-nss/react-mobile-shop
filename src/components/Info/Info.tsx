@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import './info.scss'
 import {setCartOpened} from "../../store/Slices/cartSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Preloader from "../Preloader/Preloader";
 import {RootState, useAppDispatch} from "../../store/store";
 

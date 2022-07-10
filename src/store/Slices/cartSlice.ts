@@ -1,19 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import axios from "axios";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Phone} from "./phoneSlice";
+import {fetchCart} from "../asyndActions";
 
-
-export const fetchCart = createAsyncThunk<Phone[]>(
-	'pizza/fetchCart',
-	async (_, {rejectWithValue}) => {
-		try {
-			const {data} = await axios.get('https://62c0780cd40d6ec55cd18676.mockapi.io/cart');
-			return data;
-		} catch (e: any) {
-			return rejectWithValue(e.message);
-		}
-	}
-)
 
 interface CartInterface {
 	cartOpened: boolean,

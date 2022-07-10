@@ -8,16 +8,15 @@ import {Link} from "react-router-dom";
 import Skeleton from "../Skeleton/Skeleton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {Phone} from "../../store/Slices/phoneSlice";
 
 type CardProps = {
 	title: string,
 	price: number,
 	imageUrl: string,
 	id: string,
-	onPlus: any,
+	onPlus: any | null,
 	realId: string,
-	addFavorite: any,
+	addFavorite: any | null,
 }
 
 
