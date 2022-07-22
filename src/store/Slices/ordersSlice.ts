@@ -48,6 +48,7 @@ export const ordersSlice = createSlice({
 		})
 		builder.addCase(fetchOrders.fulfilled, (state, action) => {
 			state.orders = action.payload.reduce((prev: any, obj: any) => [...prev, ...obj.items], []);
+      state.orderId = action.payload.length
 		})
 		builder.addCase(fetchOrders.rejected, (state, action:PayloadAction<any>) => {
 			console.log(action.payload)
